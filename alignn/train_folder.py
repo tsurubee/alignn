@@ -5,6 +5,7 @@ import csv
 import os
 import sys
 import time
+import pickle
 from jarvis.core.atoms import Atoms
 from alignn.data import get_train_val_loaders
 from alignn.train import train_dgl
@@ -90,6 +91,8 @@ def train_for_folder(
     with open(id_prop_dat, "r") as f:
         reader = csv.reader(f)
         data = [row for row in reader]
+    with open(os.path.join(root_dir, "cif-data.pkl"), "rb") as f:
+        cif_dict = pickle.load(f)
 
     dataset = []
     n_outputs = []
@@ -102,7 +105,7 @@ def train_for_folder(
         if file_format == "poscar":
             atoms = Atoms.from_poscar(file_path)
         elif file_format == "cif":
-            atoms = Atoms.from_cif(file_path)
+            atoms = Atoms.from_cif(file_path, from_string=cif_dict[file_name], use_cif2cell=False)
         elif file_format == "xyz":
             # Note using 500 angstrom as box size
             atoms = Atoms.from_xyz(file_path, box_size=500)
