@@ -360,6 +360,8 @@ def train_dgl(
         prepare_batch=prepare_batch,
         device=device,
         deterministic=deterministic,
+        amp_mode="amp",
+        scaler=True,
         # output_transform=make_standard_scalar_and_pca,
     )
 
@@ -368,6 +370,7 @@ def train_dgl(
         metrics=metrics,
         prepare_batch=prepare_batch,
         device=device,
+        amp_mode="amp",
         # output_transform=make_standard_scalar_and_pca,
     )
 
@@ -376,6 +379,7 @@ def train_dgl(
         metrics=metrics,
         prepare_batch=prepare_batch,
         device=device,
+        amp_mode="amp",
         # output_transform=make_standard_scalar_and_pca,
     )
 
